@@ -1,1 +1,83 @@
+1.Spring dışında dependency injection için kullanabileceğimiz framework’ler / kütüphaneler nelerdir ? (Herhangi bir programlama dili için olabilir.)
+
+•	Spring (Java)
+•	Google Guice (Java)
+•	Dagger (Java ve Android)
+•	Unity (.Net)
+
+
+2. @SpringBootApplication anotasyonu hangi anotasyonları kapsamaktadır ? Görevlerini kısaca açıklayınız.
+
+Spring boot projesi oluşturulurken @SpringBootApplication anotasyonu application classa uygulanır. 3 anotasyonu içerir.Bunlar @EnableAutoConfiguration,@ComponentScan ve @Configurationdur. @SpringBootApplication en üst package da yer almalıdır yoksa @componentscan sadece alt packageları izleyebileceği için üst packageları izleyemez. @Configuration: Bean tanımlanan classlara uygulanan bir anotasyondur.@Configuration bir Xml yapılandırma dosyasına benzer davranan java <sınıfıdır.@Configuration> anotasyonu ile işaretlenmiş java sınıfı, bağımlılıkları başlatma ve yapılandırma yöntemleri de dahil olan bir yapılandırmadır. @EnableAutoConfiguration: Main application classında daha çok bu anotasyon bulunur.Class da bulunan beani configure eder. @ComponentScan: Bean için bir package ararken @Configuration anotasyonu ile kullanılır. Spring components için aranacak temel packageları da belirtebiliriz.
+
+3.@Primary, @Qualifier anotasyonlarının kullanım amaçlarını açıklayınız.
+
+@Bean veya @Qualifier anotasyonuna parametre olarak string verilebilir, aynı işlevi görürler bu sayede context bean'i çağırırken bean'e verilen string parametre üzerinden çağırılabilir, ancak bean'i çağırırken parametre verilmezse @Primary anotasyonu yardımıyla default bir bean tanımlanması gerekir.
+
+4. Convention over configuration kavramını seçtiğiniz bir örnek üzerinden açıklayınız.
+
+Bir yazılım birimi için ayrı ayrı ayar yapmak yerine bunların tanımlı bir sözleşmeye uymasını beklemektir. Somut bir örnek vermek gerekirse; Işıklar için kullandığımız elektrik düğmeleri aşağı basıldığında ışığı açar yukarı basıldığında kapatır. Bu genel bir kuraldır. Böylece her elektrik düğmesi için ayrı bir ayar gerekmez ya da düğme üzerine açık, kapalı yazmaya gerek kalmaz. Bu yazılı olmayan bir sözleşmedir. Bu sözleşmeye uyulduğu zaman hiç bir sorun çıkmaz.
+
+5. Aspect Oriented Programlama nedir ? Avantajları ve dezavantajları nelerdir ?
+
+AOP, yazılımın karmaşıklığını azaltmaya, modülariteyi artırmaya yarayan bir yaklaşım biçimidir. Buradaki modülariteden kasıt uygulama süresince sistemin birçok bölümünde kullanılan, fonksiyonel olmayan kodun yani kesişen ilgilerin ufak ufak parçalara ayrılmasıdır (Seperation of Cross Cutting Concerns). Bu sayede uygulama genelinde kullanılacak olan yapıları, sistemden soyutlamış olup enkapsüle de ederek birçok yerde kullanılmasını sağlar. Genel olarak AOP bir sorunu çözmektense var olan sistemin daha güzel bir hale getirilmesini de sağlamaya yardımcı olur denilebilir.
+
+6. SOLID prensiplerini kısaca açıklayınız. Sizce her koşulda bu prensipler çerçevesinde mi kod yazılmalıdır ? Neden ?
+
+Single-responsibility principle: Bir sınıf (nesne) yalnızca bir amaç uğruna değiştirilebilir, o da o sınıfa yüklenen sorumluluktur, yani bir sınıfın(fonksiyona da indirgenebilir) yapması gereken yalnızca bir işi olması gerekir.
+Open-closed principle: Bir sınıf ya da fonksiyon halihazırda var olan özellikleri korumalı ve değişikliğe izin vermemelidir. Yani davranışını değiştirmiyor olmalı ve yeni özellikler kazanabiliyor olmalıdır.
+Liskov substitution principle: Kodlarımızda herhangi bir değişiklik yapmaya gerek duymadan alt sınıfları, türedikleri(üst) sınıfların yerine kullanabilmeliyiz.
+Interface segregation principle: Sorumlulukların hepsini tek bir arayüze toplamak yerine daha özelleştirilmiş birden fazla arayüz oluşturmalıyız.
+Dependency Inversion Principle: Sınıflar arası bağımlılıklar olabildiğince az olmalıdır özellikle üst seviye sınıflar alt seviye sınıflara bağımlı olmamalıdır.
+
+7. Swagger nedir, ne amaçla kullanılmaktadır ?
+
+Web API geliştirmede en önemli ihtiyaçlardan biri dokümantasyon ihtiyacıdır. Çünkü API methodlarının ne işe yaradığı ve nasıl kullanıldığı dokümantasyon içeresinde anlaşılır olması gerekir. Api dokümantasyonunu el emeği ile yazmak hem zordur hemde güncel tutması imkansızdır. Bir biçimde bu dokümantasyonu güncel olarak üretmek gerekir.  Swagger’ın önemli bir amacı RestApi ler için bir arayüz sağlamaktır. Bu hem insanların hem de bilgisayarlara kaynak koda erişmeden RestApi lerin özelliklerini görmesine, incelemesine ve anlamasına olanak sağlar.
+
+8. Richardson Maturity Model’i seviyeleriyle birlikte açıklayınız.
+
+Level-0 Swamp of POX
+REST bir taşıma protokolü olarak değerlendirip kullanmaktır. Remote Procedure Call yaparak uzak sistemdeki bir metodu çağırmaktan farksızdır. Bu kullanım SOAP, XML-RPC benzer. Genel’de POST metodu ile çağrımlar gerçekleştirir.
+
+Level-1 Resources
+REST çağırma API’mizi URI’dan resource bazlı yapıyorsak yani bir context altına atıyor isek , Örneğin http://example.org/ticket/12 dediğimizde ticket resource altındaki 12 numaralı nesneye erişmek istediğimi direk URI üzerinden gerçekleştirmiş oluruz. Genelde POST metodu ile çağrımlar gerçekleştirilir.
+
+Level-2 HTTP Verbs
+Bu seviyede sadece POST ile URI’lar çağrılmaz. Bunun yanında PUT, DELETE, POST ve GET metodları çağrılır. Her birisi için ayrı URI’lar oluşturma ihtiyacı olmaz bu sayede.
+
+
+Level-3 HyperMedia Controls
+Bu seviye kullanımda herhangi bir URI çağrıldığında cevabında bu resource ile yapabileceği işlemlerin URI olarak istemci’ye döndürülmesi. Bu sayede istemcinin ayrıca tüm URI ve yapacağı işlemleri sisteminde tutmasına gerek kalmaz. HATEOAS yönteminde istemci servis keşfini dönen cevap üzerinden yaparak işlemlerine devam edebilir.
+
+
+
+9.URL, URI, URN kavramlarını bir örnek üzerinden açıklayınız.
+
+URI (Uniform Resource Identifier)
+
+URI (Uniform Resource Identifier), kaynağa tam olarak tanımlayıcı (identifier) ile işaret eden (belge, resim, dosya vb.) ve bu işaretleme için standart bir formata sahip karakter dizgisidir. URL kapsamında tutulan alt tanımlardır. Bir sayfa, görsel, dosya vb. URI için örnek olabilir; http://ornekwebsitesi.com/logo.png, ISBN 0-486-27557-4 gibi. URI, URL ve URN olarak 2 kapsama sahiptir. Hem URN’ler (adlar) hem de URL’ler (konumlayıcılar) URI’lardır ve belirli bir URI aynı anda hem bir isim hem de konumlandırıcı olabilir. 
+
+URL (Uniform Resource Locator)
+
+URL (Uniform Resource Locator), Tekdüzen Kaynak Bulucu ya da Kaynak Konumlayıcı şeklinde ifade edilebilir. İnternet aracılığıyla erişişebilecek kaynakların (dosyalar, dökümanlar vb.) konumu URL ile ifade edilir. URL teknik olarak URI’nın başlangıç kısmını oluşturur. Yapısal olarak, URL’in ardından ise URN gelmektedir. Ancak, bir konum belirtilmek istendiğinde çoğu durumda URI yerine URL ifadesi kullanılmaktadır. URI sözdizimi (syntax) şöyledir:
+
+•	scheme://domain:port/path?query_string#fragment_id
+•	scheme://user:password@host:port/path?query_string#fragment_id
+
+Bir kaynağın nerede olduğunu ve ona nasıl ulaşılacağını belirleyen URL http://, ftp:// gibi pek çok protokolü barındırabilir. URL ve URI ilişkisini bir adres tarifi üzerinden gerçekleştirdiğimizde, URL konumu nitelerken, URN konumdaki kişinin adına benzer. Özetle, URL bir konum sağlarken URN bir şeyin kimliğini ifade eder. Örneğin, telnet://192.0.2.16:80/ bir URL iken tel:+1-816-555-1212 bir URN’dir.
+
+URN (Uniform Resource Name)
+
+Bir kaynağı benzersiz ve kalıcı bir adla tanımlar, ancak bunu İnternet’te nasıl bulunacağının söylenmesi gerekmez. Belgeleri tanımlamakla sınırlı değildirler. Hatta, URN’ler fikirleri ve kavramları tanımlayabilir. Bir URN genelde urn: prefix’i ile başlar.
+
+•	urn:isbn:0451450523 ISBN ile bir kitabı işaret eder.
+•	urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66 global olarak benzersiz bir tanımdır.
+•	urn:publishing:book bir belgeyi kitap türü olarak tanımlayan bir XML ad alanıdır.
+
+
+
+10. Idempotency nedir ? Hangi HTTP metotları idempotent’ tir ?
+
+Idempotency: metotun başarıyla çalıştıktan sonra tekrar çağırılması durumunda mevcut yapı üzerinde değişiklik yapmaması, bir önceki değerle aynı değeri döndürmesi anlamına gelir. Bir metot bir kere çağrıdığında alınan sonuç ile birden fazla kez çağrıldığında alınan sonuç aynı ise o metot idempotent metottur. Options, Get, Head, Put, Delete	
+
 
